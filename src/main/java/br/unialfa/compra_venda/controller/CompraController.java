@@ -43,8 +43,13 @@ public class CompraController {
 
     @PostMapping("salvar")
     public String salvar(Compra compra, Model model) {
-        service.salvar(compra);
-        return "redirect:/compra/listar";
+        try {
+            service.salvar(compra);
+            return "redirect:/compra/listar";
+        } catch (Exception e){
+            System.out.println("Algo de errado não deu certo: " + e.getMessage());
+            return iniciar(compra, model);
+        }
     }
 
     @GetMapping("listar")
