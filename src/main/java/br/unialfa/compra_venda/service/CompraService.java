@@ -16,18 +16,17 @@ public class CompraService {
 
     @Transactional
     public void salvar(Compra compra) {
-
         compra.getItens().forEach(itemCompra -> itemCompra.setCompra(compra));
-
         repository.save(compra);
     }
 
     public List<Compra> listarTodos() {
-        return repository.findAll();
+        var result = repository.findAll();
+        return result;
     }
 
     public Compra buscarPorId(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow();
     }
 
     public void deletarPorId(Long id) {
